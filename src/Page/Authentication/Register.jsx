@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import '../.././index.css';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../../Firbas/Firbes.js';
 
 import Img from '../../assets/authImage.png';
@@ -47,6 +47,17 @@ const RegistrationPage = () => {
     }
   };
 
+  const handleGoogleRegister = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      alert('Registration with Google successful!');
+      console.log('User:', result.user);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   return (
     <div className="bg-white rounded-lg shadow-lg flex flex-col lg:flex-row w-full md:w-[90%] overflow-hidden">
       {/* Left Section: Registration Form */}
@@ -74,7 +85,7 @@ const RegistrationPage = () => {
               placeholder="Name"
               value={formData.name}
               onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+              className="mt-1 block w-full px-3 text-black py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
             />
           </div>
           <div>
@@ -85,7 +96,7 @@ const RegistrationPage = () => {
               placeholder="Email"
               value={formData.email}
               onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2 text-black border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
             />
           </div>
           <div>
@@ -96,7 +107,7 @@ const RegistrationPage = () => {
               placeholder="Password"
               value={formData.password}
               onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+              className="mt-1 block w-full px-3 text-black py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
             />
           </div>
           <button
@@ -110,7 +121,7 @@ const RegistrationPage = () => {
         {error && <p className="text-red-500 text-center">{error}</p>}
 
         <p className="mt-6 text-center text-sm text-gray-600">
-          Already have an account? <a href="#" className="font-medium text-green-600 hover:text-green-500">Login</a>
+          Already have an account? <Link to='/login' href="#" className="font-medium text-green-600 hover:text-green-500">Login</Link>
         </p>
         <div className="relative flex justify-center items-center my-4">
           <div className="absolute inset-0 flex items-center" aria-hidden="true">
@@ -122,6 +133,7 @@ const RegistrationPage = () => {
         </div>
         <button
           type="button"
+          onClick={handleGoogleRegister}
           className="w-full inline-flex justify-center items-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
          <img src={Logo} alt="Google logo" className="w-5 h-5 mr-2" />

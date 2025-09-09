@@ -130,13 +130,34 @@ const ServicesSection = () => {
       {/* Brand logo */}
       <section className='text-center bg-gray-50 px-4 py-10 sm:py-16'>
         <h2 className='text-black text-2xl sm:text-3xl font-bold mb-8'>We've helped thousands of sales teams</h2>
-        <div className='flex flex-wrap items-center justify-center gap-8 sm:gap-12 md:gap-16'>
-          <img src={brand1} alt="Amazon" className="h-8 sm:h-10" />
-          <img src={brand2} alt="Casio" className="h-8 sm:h-10" />
-          <img src={brand3} alt="Moonstar" className="h-8 sm:h-10" />
-          <img src={brand4} alt="Randstad" className="h-8 sm:h-10" />
-          <img src={brand5} alt="Start" className="h-8 sm:h-10" />
-          <img src={brand6} alt="Start People" className="h-8 sm:h-10" />
+        <div className='overflow-hidden relative'>
+          <motion.div
+            className='flex items-center gap-8 sm:gap-12 md:gap-16 whitespace-nowrap'
+            animate={{ x: [0, -100 * 6] }} // Assuming 6 logos, adjust as needed
+            transition={{
+              x: {
+                repeat: Infinity,
+                repeatType: "loop",
+                duration: 20,
+                ease: "linear",
+              },
+            }}
+          >
+            {/* Duplicate logos for seamless loop */}
+            <img src={brand1} alt="Amazon" className="h-8 sm:h-10 flex-shrink-0" />
+            <img src={brand2} alt="Casio" className="h-8 sm:h-10 flex-shrink-0" />
+            <img src={brand3} alt="Moonstar" className="h-8 sm:h-10 flex-shrink-0" />
+            <img src={brand4} alt="Randstad" className="h-8 sm:h-10 flex-shrink-0" />
+            <img src={brand5} alt="Start" className="h-8 sm:h-10 flex-shrink-0" />
+            <img src={brand6} alt="Start People" className="h-8 sm:h-10 flex-shrink-0" />
+            {/* Duplicate for seamless */}
+            <img src={brand1} alt="Amazon" className="h-8 sm:h-10 flex-shrink-0" />
+            <img src={brand2} alt="Casio" className="h-8 sm:h-10 flex-shrink-0" />
+            <img src={brand3} alt="Moonstar" className="h-8 sm:h-10 flex-shrink-0" />
+            <img src={brand4} alt="Randstad" className="h-8 sm:h-10 flex-shrink-0" />
+            <img src={brand5} alt="Start" className="h-8 sm:h-10 flex-shrink-0" />
+            <img src={brand6} alt="Start People" className="h-8 sm:h-10 flex-shrink-0" />
+          </motion.div>
         </div>
       </section>
     </>

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import '../../index.css';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../../Firbas/Firbes.js';
 import Img from '../../assets/authImage.png';
 import Logo from '../../assets/Logo/google Logo.png';
@@ -42,6 +42,18 @@ const LoginPage = () => {
       alert('Login successful!');
     } catch (err) {
       setError(err.message);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      alert('Login with Google successful!');
+      console.log('User:', result.user);
+    } catch (err) {
+      console.error("Google Login Error:", err);
+      setError(`Failed: ${err.code} - ${err.message}`);
     }
   };
 
@@ -104,7 +116,7 @@ const LoginPage = () => {
           {error && <p className="text-red-500 text-center">{error}</p>}
 
           <p className="mt-6 text-center text-sm text-gray-600">
-            Don't have any account? <a href="#" className="font-medium text-green-600 hover:text-green-500">Register</a>
+            Don't have any account? <Link to='/Register' href="#" className="font-medium text-green-600 hover:text-green-500">Register</Link>
           </p>
           <div className="relative flex justify-center items-center my-4">
             <div className="absolute inset-0 flex items-center" aria-hidden="true">
@@ -116,6 +128,7 @@ const LoginPage = () => {
           </div>
           <button
             type="button"
+            onClick={handleGoogleLogin}
             className="w-full inline-flex justify-center items-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             <img src={Logo} alt="Google logo" className="w-5 h-5 mr-2" />
