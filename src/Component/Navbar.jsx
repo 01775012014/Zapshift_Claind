@@ -1,18 +1,26 @@
 import React, { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, X, User } from "lucide-react";
 import logo from "../assets/logo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
 
   const navLinks = [
     { name: "Services", path: "/services" },
-    { name: "Coverage", path: "/coverage" },
+    { name: "Coverage", path: "/consignment" },
     { name: "About Us", path: "/about" },
-    { name: "Pricing", path: "/pricing" },
+    { name: "Pricing", path: "/pricing-calculator" },
+    { name: "Be a Rider", path: "/be-a-rider" },
   ];
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setProfileMenuOpen(false);
+  };
 
   return (
     <motion.nav
@@ -53,44 +61,53 @@ const Navbar = () => {
               )}
             </NavLink>
           ))}
+        </div>
 
-          {/* Be a Rider Button */}
-          <Link
-            to="/rider"
-            className="px-4 py-2 bg-lime-300 rounded-full text-sm font-medium text-gray-800 hover:bg-lime-400 transition"
-          >
-            Be a Rider
-          </Link>
-
-          {/* Sign In */}
-          <Link
-            to="/signin"
-            className="px-4 py-2 border rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 transition"
-          >
-            Sign In
-          </Link>
-
-          {/* Sign Up */}
-          <Link
-            to="/signup"
-            className="px-4 py-2 bg-lime-300 rounded-xl text-sm font-medium text-gray-900 hover:bg-lime-400 transition"
-          >
-            Sign Up
-          </Link>
-
-          {/* Last Black Circle Button */}
+        {/* Desktop Auth Buttons */}
+        <div className="hidden md:flex items-center gap-4">
+          {isLoggedIn ? (
+            <div className="relative">
+              <button onClick={() => setProfileMenuOpen(!profileMenuOpen)} className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+                <User size={20} />
+              </button>
+              {profileMenuOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1">
+                  <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</Link>
+                  <Link to="/settings" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</Link>
+                  <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="px-4 py-2 border rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 transition"
+              >
+                Sign In
+              </Link>
+              <Link
+                to="/Register"
+                className="px-4 py-2 bg-lime-300 rounded-xl text-sm font-medium text-gray-900 hover:bg-lime-400 transition"
+              >
+                Sign Up
+              </Link>
+            </>
+          )}
           <button className="w-8 h-8 rounded-full bg-black flex items-center justify-center text-lime-300">
             <ArrowUpRight size={18} />
           </button>
         </div>
 
-        {/* Hamburger Menu */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden p-2"
-        >
-          <Menu size={24} />
-        </button>
+        {/* Mobile Menu Button */}
+        <div className="md:hidden flex items-center">
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="p-2"
+          >
+            <Menu size={24} />
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
@@ -102,6 +119,28 @@ const Navbar = () => {
           className="md:hidden absolute top-full text-gray-950 left-0 w-full bg-white shadow-lg z-40"
         >
           <div className="flex flex-col items-center py-4 gap-4">
+            {isLoggedIn ? (
+              <div className="relative">
+                <button onClick={() => setProfileMenuOpen(!profileMenuOpen)} className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+                  <User size={20} />
+                </button>
+                {profileMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1">
+                    <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</Link>
+                    <Link to="/settings" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</Link>
+                    <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                to="/signin"
+                onClick={() => setIsOpen(false)}
+                className="px-4 py-2 border rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 transition"
+              >
+                Sign In
+              </Link>
+            )}
             {navLinks.map((link) => (
               <NavLink
                 key={link.name}
@@ -116,31 +155,6 @@ const Navbar = () => {
                 {link.name}
               </NavLink>
             ))}
-
-            <Link
-              to="/rider"
-              onClick={() => setIsOpen(false)}
-              className="px-4 py-2 bg-lime-300 rounded-full text-sm font-medium text-gray-800 hover:bg-lime-400 transition"
-            >
-              Be a Rider
-            </Link>
-
-            <Link
-              to="/signin"
-              onClick={() => setIsOpen(false)}
-              className="px-4 py-2 border rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 transition"
-            >
-              Sign In
-            </Link>
-
-            <Link
-              to="/signup"
-              onClick={() => setIsOpen(false)}
-              className="px-4 py-2 bg-lime-300 rounded-xl text-sm font-medium text-gray-900 hover:bg-lime-400 transition"
-            >
-              Sign Up
-            </Link>
-
             <button
               onClick={() => setIsOpen(false)}
               className="w-8 h-8 rounded-full bg-black flex items-center justify-center text-lime-300 mt-2"

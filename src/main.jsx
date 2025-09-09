@@ -7,6 +7,12 @@ import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import MainRout from './MainRout/MainRout.jsx';
 import HomePage from './Page/HomePage/HomPage.jsx'
+import ReaRider from './Page/Be a Rider/BeaRider.jsx';
+import PricingCalculator from './Page/Pricing Calculator/PricingCalculator.jsx'
+import AboutUs from './Page/About Us/AboutUs.jsx';
+import Consignment from './Page/Track Your Consignment/Consignment.jsx';
+import Login from './Page/Authentication/Login.jsx';
+import Register from './Page/Authentication/Register.jsx';
 
 const router = createBrowserRouter([
   {
@@ -16,9 +22,34 @@ const router = createBrowserRouter([
       {
         path:"/",
         element:<HomePage/>
-      }
+      },
+      {
+        path:'/be-a-rider',
+        element:<ReaRider/>
+      },
+      {
+        path: "/pricing-calculator",
+        element:<PricingCalculator/>
+      },
+      {
+        path:"/about",
+        element:<AboutUs/>
+      },
+      {
+        path:'/consignment',
+        element: <Consignment/>
+      },
+      
     ]
   },
+  {
+    path:'/login',
+    element:<Login/>
+  },
+  {
+    path:'/Register',
+    element:<Register/>
+  }
 ]);
 
 createRoot(document.getElementById('root')).render(
