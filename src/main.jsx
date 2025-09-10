@@ -14,6 +14,8 @@ import Consignment from './Page/Track Your Consignment/Consignment.jsx';
 import Login from './Page/Authentication/Login.jsx';
 import Register from './Page/Authentication/Register.jsx';
 import Available64Districts from './Page/We are available in 64 districts/Available64Distists.jsx';
+import AddParcel from './Page/Add Parcel/AddParcel.jsx';
+import Error404Page from './Page/Error404/Error404Page.jsx';
 
 const router = createBrowserRouter([
   {
@@ -43,6 +45,14 @@ const router = createBrowserRouter([
       {
         path:'/map-64-districts',
         element:<Available64Districts/>,
+      },
+      {
+        path:'/AddParcel',
+        element:<AddParcel/>
+      },
+      {
+        path:'/error404',
+        element:<Error404Page/>
       }
       
     ]
