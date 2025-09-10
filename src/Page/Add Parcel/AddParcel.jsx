@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import { ChevronDown, Package, FileText, MapPin, Phone, User, Home, Globe } from 'lucide-react';
-import { db } from '../../Firbas/Firbes';
-import { collection, addDoc } from 'firebase/firestore';
 
 const AddParcel = () => {
   const [parcelType, setParcelType] = useState('document');
@@ -95,9 +93,9 @@ const AddParcel = () => {
       title: 'Delivery Cost Breakdown',
       html: `
         <div style="text-align: left; margin-bottom: 15px;">
-          ${breakdown.map(item => `<p>${item}</p>`).join('')}
+          ${breakdown.map(item => `<p style="margin: 5px 0;">${item}</p>`).join('')}
         </div>
-        <strong>Total Cost: ৳${cost}</strong><br><br>
+        <strong style="font-size: 18px; color: #2d3748;">Total Cost: ৳${cost}</strong><br><br>
         Do you want to confirm the booking?
       `,
       icon: 'info',
@@ -115,14 +113,28 @@ const AddParcel = () => {
           cost,
           creation_date: new Date().toISOString()
         };
-        await addDoc(collection(db, 'parcels'), parcelData);
-        Swal.fire({
-          icon: 'success',
-          title: 'Success!',
-          text: `Your parcel has been booked successfully for ৳${cost}.`,
-          showConfirmButton: false,
-          timer: 1500
+
+        const response = await fetch('http://localhost:5000/api/parcels', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(parcelData)
         });
+
+        const data = await response.json();
+
+        if (data.success) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: `Your parcel has been booked successfully for ৳${cost}.`,
+            showConfirmButton: false,
+            timer: 1500
+          });
+        } else {
+          throw new Error(data.message);
+        }
       } catch (error) {
         console.error('Error saving parcel:', error);
         Swal.fire({

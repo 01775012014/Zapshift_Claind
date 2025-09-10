@@ -16,6 +16,9 @@ import Register from './Page/Authentication/Register.jsx';
 import Available64Districts from './Page/We are available in 64 districts/Available64Distists.jsx';
 import AddParcel from './Page/Add Parcel/AddParcel.jsx';
 import Error404Page from './Page/Error404/Error404Page.jsx';
+import DashboardLayout from './Layout/DashboardLayout.jsx';
+import MyParcele from './Page/Dashboard/My Parcels/MyParcele.jsx';
+import PrivateRoute from './Component/PrivateRoute.jsx';
 
 const router = createBrowserRouter([
   {
@@ -64,6 +67,19 @@ const router = createBrowserRouter([
   {
     path:'/Register',
     element:<Register/>
+  },
+  {
+    path:'/dashboard',
+    element:<PrivateRoute>
+      <DashboardLayout/>
+    </PrivateRoute>,
+    children:[
+       {
+         path: 'myparcels',
+         Component: MyParcele
+
+       }
+     ]
   }
 ]);
 
