@@ -13,6 +13,7 @@ import AboutUs from './Page/About Us/AboutUs.jsx';
 import Consignment from './Page/Track Your Consignment/Consignment.jsx';
 import Login from './Page/Authentication/Login.jsx';
 import Register from './Page/Authentication/Register.jsx';
+import Available64Districts from './Page/We are available in 64 districts/Available64Distists.jsx';
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
         path:'/consignment',
         element: <Consignment/>
       },
+      {
+        path:'/map-64-districts',
+        element:<Available64Districts/>,
+      }
       
     ]
   },

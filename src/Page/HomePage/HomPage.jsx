@@ -4,6 +4,7 @@ import ServicesSection from './Component/ServicesSection';
 import FeaturesSection from './Component/FeaturesSection';
 import TestimonialSlider from './Component/TestimonialSlider';
 import FAQ from './Component/FAQ';
+import SatisfactionSection from './Component/SatisfactionSection';
 
 const HomPage = () => {
     return (
@@ -13,6 +14,8 @@ const HomPage = () => {
             <ServicesSection/>
             
             <FeaturesSection/>
+
+            <SatisfactionSection/>
 
             {/* script file */}
             <TestimonialSlider/>

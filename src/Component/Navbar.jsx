@@ -20,7 +20,7 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: "Services", path: "/services" },
+    { name: "Services", path: "/map-64-districts" },
     { name: "Coverage", path: "/consignment" },
     { name: "About Us", path: "/about" },
     { name: "Pricing", path: "/pricing-calculator" },
